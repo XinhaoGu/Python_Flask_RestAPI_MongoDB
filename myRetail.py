@@ -1,12 +1,19 @@
 # using flask_restful 
-from flask import Flask, request
-from flask_restful import Resource, Api, abort
+from flask import Flask, request, json
+from flask_restful import Resource, Api
+from flask_pymongo import PyMongo
+from bson import json_util
 
 # creating the flask app 
 app = Flask(__name__)
 # creating an API object 
 api = Api(app)
+# configure MongoDB
+app.config["MONGO_URI"] = "mongodb://localhost:27017/myRetail"
+mongo = PyMongo(app)
 
+# down below is a list of products, which are saved in a MongoDB 
+'''
 products = [
     {
         'id': 13860428,
@@ -57,10 +64,7 @@ products = [
         }
     }
 ]
-
-def lookupProductById(product_id):
-     product = [product for product in products if product['id'] == product_id]
-     return product
+'''
 
 # making a class for a particular resource 
 # the get, post methods correspond to get and post requests 
@@ -69,18 +73,20 @@ def lookupProductById(product_id):
 class GetProducts(Resource):
     # corresponds to the GET request. 
     def get(self):
-        return {'products':products}, 
+        products = json.dumps(list(mongo.db.products.find()), default=json_util.default)
+        return {'products':products} 
 
     # Corresponds to POST request 
     def post(self):
         newProduct = request.get_json()
-        return {'you sent': newProduct}, 201 # status code 
+        mongo.db.products.insert(newProduct)
+        return {'new product': newProduct}, 201 # status code 
 
 # another resource to calculate the square of a number
 class GetProductById(Resource): 
     def get(self, product_id): 
-        product = lookupProductById(product_id)
-        return {'result': product}
+        product = json.dumps(list(mongo.db.products.find({"id":product_id})), default=json_util.default)
+        return {'product': product}
 
 # adding the defined resources along with their corresponding urls 
 api.add_resource(GetProducts, '/api/products')
