@@ -76,7 +76,7 @@ mongo = PyMongo(app)
 # they are automatically mapped by flask_restful. 
 # other methods include put, delete, etc. 
 class GetProducts(Resource):
-    # corresponds to the GET request. 
+    # corresponds to the GET request 
     def get(self):
         products = json.dumps(list(mongo.db.products.find()), default=json_util.default)
         return {'products':products} 
@@ -87,11 +87,18 @@ class GetProducts(Resource):
         mongo.db.products.insert(newProduct)
         return {'new product': newProduct}, 201 # status code 
 
-# another resource to calculate the square of a number
 class GetProductById(Resource): 
+    # corresponds to the GET request
     def get(self, product_id): 
         product = json.dumps(list(mongo.db.products.find({"id":product_id})), default=json_util.default)
         return {'product': product}
+
+    # Corresponds to PUT request 
+    def put(self, product_id):
+        updatedProduct = request.get_json()
+        mongo.db.products.remove({"id": product_id})
+        mongo.db.products.insert(updatedProduct)
+        return {'updated product': updatedProduct}, 202 # status code 
 
 # adding the defined resources along with their corresponding urls 
 api.add_resource(GetProducts, '/api/products')

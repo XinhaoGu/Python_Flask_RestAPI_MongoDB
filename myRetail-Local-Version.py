@@ -81,13 +81,22 @@ class GetProducts(Resource):
     # Corresponds to POST request 
     def post(self):
         newProduct = request.get_json()
-        return {'you sent': newProduct}, 201 # status code 
+        products.append(newProduct)
+        return {'new product': newProduct}, 201 # status code 
 
-# another resource to calculate the square of a number
 class GetProductById(Resource): 
+    # corresponds to the GET request
     def get(self, product_id): 
         product = lookupProductById(product_id)
-        return {'result': product}
+        return {'product': product}
+
+    # Corresponds to PUT request 
+    def put(self, product_id): 
+        oldProduct = lookupProductById(product_id)
+        indexOldProduct = products.index(oldProduct)
+        newProduct = request.get_json()
+        products[indexOldProduct] = newProduct
+        return {'updated product': newProduct}
 
 # adding the defined resources along with their corresponding urls 
 api.add_resource(GetProducts, '/api/products')
