@@ -1,4 +1,5 @@
 # Python_Flask_RestAPI_MongoDB
+![](/images/Flask+Mongo.jpg)
 
 ## Project Title: 
 Build a simple RESTful API web service using Python Flask and Swagger UI 
