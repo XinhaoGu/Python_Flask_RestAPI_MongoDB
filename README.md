@@ -14,6 +14,15 @@ This project adheres to the REST guidelines then becomes an exercise in identify
 
 One must have Python installed in his local system for deploying this RESTFUL-API easily. Other than Python one must also have to install Python-Flask and its dependencies.
 
+```
+Python v3.7+ 
+MogoDB v3.2+
+PIP v20+
+pip install Flask 
+pip install flask-restplus
+pip install Flask-PyMongo
+pip install bson
+```
 
 ## Running the RESTFUL-API Service
 
