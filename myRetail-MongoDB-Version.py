@@ -59,7 +59,7 @@ Xinhao -- 03/20/2020
 
 # using flask_restful 
 from flask import Flask, request, json
-from flask_restful import Resource, Api
+from flask_restplus import Resource, Api
 from flask_pymongo import PyMongo
 from bson import json_util
 
@@ -75,6 +75,7 @@ mongo = PyMongo(app)
 # the get, post methods correspond to get and post requests 
 # they are automatically mapped by flask_restful. 
 # other methods include put, delete, etc. 
+@api.route('/api/products', endpoint='products')
 class GetProducts(Resource):
     # corresponds to the GET request 
     def get(self):
@@ -87,6 +88,8 @@ class GetProducts(Resource):
         mongo.db.products.insert(newProduct)
         return {'new product': newProduct}, 201 # status code 
 
+# adding the defined resources along with their corresponding urls 
+@api.route('/api/product/<int:product_id>', endpoint='product')
 class GetProductById(Resource): 
     # corresponds to the GET request
     def get(self, product_id): 
@@ -99,10 +102,6 @@ class GetProductById(Resource):
         mongo.db.products.remove({"id": product_id})
         mongo.db.products.insert(updatedProduct)
         return {'updated product': updatedProduct}, 202 # status code 
-
-# adding the defined resources along with their corresponding urls 
-api.add_resource(GetProducts, '/api/products')
-api.add_resource(GetProductById, '/api/product/<int:product_id>', endpoint='product_ep')
 
 # driver function 
 if __name__ == '__main__':

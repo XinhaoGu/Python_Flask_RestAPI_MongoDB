@@ -7,10 +7,11 @@ Xinhao -- 3/20/2020
 
 # using flask_restful 
 from flask import Flask, request
-from flask_restful import Resource, Api, abort
+from flask_restplus import Resource, Api
 
 # creating the flask app 
 app = Flask(__name__)
+
 # creating an API object 
 api = Api(app)
 
@@ -73,10 +74,11 @@ def lookupProductById(product_id):
 # the get, post methods correspond to get and post requests 
 # they are automatically mapped by flask_restful. 
 # other methods include put, delete, etc. 
+@api.route('/api/products', endpoint='products')
 class GetProducts(Resource):
     # corresponds to the GET request. 
     def get(self):
-        return {'products':products}, 
+        return {'products':products} 
 
     # Corresponds to POST request 
     def post(self):
@@ -84,6 +86,9 @@ class GetProducts(Resource):
         products.append(newProduct)
         return {'new product': newProduct}, 201 # status code 
 
+
+# adding the defined resources along with their corresponding urls 
+@api.route('/api/product/<int:product_id>', endpoint='product')
 class GetProductById(Resource): 
     # corresponds to the GET request
     def get(self, product_id): 
@@ -97,10 +102,6 @@ class GetProductById(Resource):
         newProduct = request.get_json()
         products[indexOldProduct] = newProduct
         return {'updated product': newProduct}
-
-# adding the defined resources along with their corresponding urls 
-api.add_resource(GetProducts, '/api/products')
-api.add_resource(GetProductById, '/api/product/<int:product_id>', endpoint='product_ep')
 
 # driver function 
 if __name__ == '__main__':
