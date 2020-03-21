@@ -34,3 +34,11 @@ Run local + MongoDB version
 ```
 python .\myRetail-MongoDB-Version.py
 ```
+
+## Checking the User Interface
+
+https://localhost:5000/
+
+## Checking the Swagger UI 
+
+https://localhost
