@@ -1,9 +1,7 @@
-'''
-Hello, this is a local version of myRetial app. By all means, my may run it 
-without connecting to a persistent Database. 
-
-Xinhao -- 3/20/2020
-'''
+#Hello, this is a local version of myRetial app, which it can run 
+#without connecting to a persistent Database. 
+#
+#Xinhao Gu -- 3/20/2020
 
 # using flask_restful 
 from flask import Flask, request

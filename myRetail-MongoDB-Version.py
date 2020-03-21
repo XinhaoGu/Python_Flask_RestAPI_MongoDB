@@ -1,60 +1,57 @@
+# Hello, down below is a MongoDB version of myRetail app 
+# to run this app, you need to have MongoDB installed and create a document called 'myRetail'
+# and then create a db called 'products', run the MongoDB server at port 27017 
+# Xinhao -- 03/20/2020
+# Below is a list of json objects need to insert into myRetail.products database
 '''
-Hello, down below is a MongoDB version of myRetail app 
-to run this app, you need to have MongoDB installed and create a document called 'myRetail'
-and then create a db called 'products', run the MongoDB server at port 27017 
-
-Below is a list of json objects need to insert into myRetail.products database
-
-    {
-        'id': 13860428,
-        'name': 'The Big Lebowski (Blu-ray) (Widescreen)',
-        'current_price': {
-            'value':13.49,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 15117729,
-        'name': 'Star Wars - The Reise of Skywalker (Blu-Ray)',
-        'current_price': {
-            'value':24.99,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 16483589,
-        'name': 'Frozen II - (Blu-Ray + DVD + Digital)',
-        'current_price': {
-            'value':20.00,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 16696652,
-        'name': '1917 (Blu-Ray + DVD + Digital)',
-        'current_price': {
-            'value':24.99,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 16752456,
-        'name': 'Joker (2019) Digital HD',
-        'current_price': {
-            'value':24.99,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 15643793,
-        'name': 'Jumanji (Blu-Ray + DVD + Digital)',
-        'current_price': {
-            'value':22.99,
-            'currency_code':'USD'
-        }
+{
+    'id': 13860428,
+    'name': 'The Big Lebowski (Blu-ray) (Widescreen)',
+    'current_price': {
+        'value':13.49,
+        'currency_code':'USD'
     }
-
-Xinhao -- 03/20/2020
+},
+{
+    'id': 15117729,
+    'name': 'Star Wars - The Reise of Skywalker (Blu-Ray)',
+    'current_price': {
+        'value':24.99,
+        'currency_code':'USD'
+    }
+},
+{
+    'id': 16483589,
+    'name': 'Frozen II - (Blu-Ray + DVD + Digital)',
+    'current_price': {
+        'value':20.00,
+        'currency_code':'USD'
+    }
+},
+{
+    'id': 16696652,
+    'name': '1917 (Blu-Ray + DVD + Digital)',
+    'current_price': {
+        'value':24.99,
+        'currency_code':'USD'
+    }
+},
+{
+    'id': 16752456,
+    'name': 'Joker (2019) Digital HD',
+    'current_price': {
+        'value':24.99,
+        'currency_code':'USD'
+    }
+},
+{
+    'id': 15643793,
+    'name': 'Jumanji (Blu-Ray + DVD + Digital)',
+    'current_price': {
+        'value':22.99,
+        'currency_code':'USD'
+    }
+}
 '''
 
 # using flask_restful 
