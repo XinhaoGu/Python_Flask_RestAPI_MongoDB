@@ -56,4 +56,9 @@ https://localhost
 ## Checking MongoDB Server
 ```
 https://localhost:27017
+<<<<<<< HEAD
 ```
+=======
+```
+
+>>>>>>> 810833a0d13ead1631cf539f5fea78e29ae4e10a
