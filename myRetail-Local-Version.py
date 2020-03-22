@@ -80,9 +80,9 @@ class GetProducts(Resource):
 
     # Corresponds to POST request 
     def post(self):
-        newProduct = request.get_json()
-        products.append(newProduct)
-        return {'new product': newProduct}, 201 # status code 
+        new_product = request.get_json()
+        products.append(new_product)
+        return {'new product': new_product}, 201 # status code 
 
 
 # adding the defined resources along with their corresponding urls 
@@ -95,11 +95,11 @@ class GetProductById(Resource):
 
     # Corresponds to PUT request 
     def put(self, product_id): 
-        oldProduct = lookupProductById(product_id)
-        indexOldProduct = products.index(oldProduct)
-        newProduct = request.get_json()
-        products[indexOldProduct] = newProduct
-        return {'updated product': newProduct}
+        old_product = lookupProductById(product_id)
+        index_old_product = products.index(old_product)
+        new_product = request.get_json()
+        products[index_old_product] = new_product
+        return {'updated product': new_product}
 
 # driver function 
 if __name__ == '__main__':

@@ -60,13 +60,28 @@ from flask_restplus import Resource, Api
 from flask_pymongo import PyMongo
 from bson import json_util
 
+# using db provider 
+import importlib.util
+
+def module_from_file(module_name, file_path):
+    spec = importlib.util.spec_from_file_location(module_name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
 # creating the flask app 
 app = Flask(__name__)
+
 # creating an API object 
 api = Api(app)
+
 # configure MongoDB
-app.config["MONGO_URI"] = "mongodb://localhost:27017/myRetail"
+db_Provider = module_from_file("db-Provider", "database/db-Provider.py")
+app.config["MONGO_URI"] = db_Provider.DBHelper("MongoDB").GetURI()
+#app.config["MONGO_URI"] = "mongodb://localhost:27017/myRetail"
+
 mongo = PyMongo(app)
+
 
 # making a class for a particular resource 
 # the get, post methods correspond to get and post requests 
@@ -81,9 +96,9 @@ class GetProducts(Resource):
 
     # Corresponds to POST request 
     def post(self):
-        newProduct = request.get_json()
-        mongo.db.products.insert(newProduct)
-        return {'new product': newProduct}, 201 # status code 
+        new_product = request.get_json()
+        mongo.db.products.insert(new_product)
+        return {'new product': new_product}, 201 # status code 
 
 # adding the defined resources along with their corresponding urls 
 @api.route('/api/product/<int:product_id>', endpoint='product')
@@ -95,10 +110,10 @@ class GetProductById(Resource):
 
     # Corresponds to PUT request 
     def put(self, product_id):
-        updatedProduct = request.get_json()
+        updated_product = request.get_json()
         mongo.db.products.remove({"id": product_id})
-        mongo.db.products.insert(updatedProduct)
-        return {'updated product': updatedProduct}, 202 # status code 
+        mongo.db.products.insert(updated_product)
+        return {'updated product': updated_product}, 202 # status code 
 
 # driver function 
 if __name__ == '__main__':
