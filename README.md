@@ -1,4 +1,5 @@
 # Python_Flask_RestAPI_MongoDB
+![](/images/Flask+Mongo.jpg)
 
 ## Project Title: 
 Build a simple RESTful API web service using Python Flask and Swagger UI 
@@ -8,7 +9,14 @@ First things first, A RESTful API is an application program interface (API) that
 
 ![](/images/REST.png)
 
-This project adheres to the REST guidelines then becomes an exercise in identifying the resources that will be exposed and how they will be affected by the different request methods.The goal for this exercise is to create an end-to-end Proof-of-Concept for a products API, which will create a RESTful service that can retrieve product and price details by ID, and aggregate product data from multiple sources and return it as JSON to the caller. 
+Secondly, a quick overview what's MongoDB and what are the differences in compare to any traditional relational databases. 
+MongoDB stores data in documents, and documents are not just key/value pairs but can include arrays and subdocuments. The data itself can be different data types like geospatial, decimal, and ISODate to name a few. Internally MongoDB stores a binary representation of JSON known as BSON. This allows MongoDB to provide data types like decimal that are not defined in the JSON specification. For more information on the BSON spec check out the following URL: http://bsonspec.org.
+
+A collection in MongoDB is a container for documents. A database is the container for collections. This grouping is similar to relational databases and is pictured below:
+
+![](/images/MongoDB.png)
+
+Finally, let go over what's is this project does - the project adheres to the REST guidelines then becomes an exercise in identifying the resources that will be exposed and how they will be affected by the different request methods.The goal for this exercise is to create an end-to-end Proof-of-Concept for a products API, which will create a RESTful service that can retrieve product and price details by ID, and aggregate product data from multiple sources and return it as JSON to the caller. 
 
 ## Pre-requisites
 
@@ -36,9 +44,16 @@ python .\myRetail-MongoDB-Version.py
 ```
 
 ## Checking the User Interface
-
+```
 https://localhost:5000/
+```
 
 ## Checking the Swagger UI 
-
+```
 https://localhost
+```
+
+## Checking MongoDB Server
+```
+https://localhost:27017
+```
