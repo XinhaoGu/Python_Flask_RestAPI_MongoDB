@@ -101,6 +101,20 @@ class GetProductById(Resource):
         products[index_old_product] = new_product
         return {'updated product': new_product}
 
+    # Corresponds to DELETE request 	
+    def delete( self,product_id):	
+        try:	
+            deleteCount = mongo.db.products.delete_one ({"id":product_id})	
+            if deleteCount > 0:	
+                #Successfully deleted	
+                return "",204	
+            else:	
+                #Not Found	
+                return "",404	
+        except:	
+            #Error when deleting resource	
+            return "",500
+
 # driver function 
 if __name__ == '__main__':
     app.run(debug=True)

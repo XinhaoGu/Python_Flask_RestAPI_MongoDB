@@ -30,6 +30,7 @@ pip install Flask
 pip install flask-restplus
 pip install Flask-PyMongo
 pip install bson
+pip install Werkzeug 0.16.0
 ```
 
 ## Running the RESTFUL-API Service

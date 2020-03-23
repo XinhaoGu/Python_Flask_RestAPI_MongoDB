@@ -12,7 +12,7 @@ class DBHelper:
     def GetConfigData(self): 
         # read file
         data_folder = Path("../database")
-        file_to_open = data_folder / "dbConfig.json"
+        file_to_open = data_folder / "db-Config.json"
         with open(file_to_open, 'r') as json_data_file:
             json_data = json_data_file.read()
 
@@ -24,14 +24,16 @@ class DBHelper:
     def GetDBConfig(self): 
         db_obj = None
         db_config_obj = self.GetConfigData()
+        #print (json.dumps(db_config_obj))
         for key in db_config_obj:
-            if self.db_type == key 
+            if self.db_type == key:
                 db_obj = db_config_obj[key]
         pass
         return db_obj
-
+    
     def GetURI(self):
         db_config = self.GetDBConfig()
+        #print (json.dumps(db_config))
         # "mongodb://localhost:27017/myRetail"
         uri = "mongodb://" + db_config["host"] + ":" + db_config["port"] + "/" + db_config["db"]
         return uri
