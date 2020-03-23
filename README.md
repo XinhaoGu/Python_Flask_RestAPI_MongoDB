@@ -60,53 +60,53 @@ https://localhost
 https://localhost:27017
 ```
 
-# to start MongoDB server
+### to start MongoDB server
 cd C:\Program Files (x86)\MongoDB\Server\3.2\bin
 mongod.exe --dbpath C:\MongoDB\data\db
 
-# to start MongoDB client 
+### to start MongoDB client 
 cd C:\Program Files (x86)\MongoDB\Server\3.2\bin
 mongo.ext
 
-# remove lock and repair db
+### remove lock and repair db
 mongod --dbpath C:\MongoDB\data\db --repair
 mongod --storageEngine=mmapv1 --dbpath C:\MongoDB\data\db
 
-# basic commands
-# start MongoDB client
-# list all the databases
+### basic commands
+### start MongoDB client
+### list all the databases
 ``` 
 show dbs 
 ```
-# switch to db testDB
+### switch to db testDB
 ```
 use testDB 
 ```
-# show collections under testDB
+### show collections under testDB
 ```
 show collections
 ```
-# delete database 
+### delete database 
 ```
 db.dropDatabase()
 ```
-# create new DB 
+### create new DB 
 ```
 user testDB
 ```
-# check which DB you are in 
+### check which DB you are in 
 ```
 db
 ```
-# create collections 
+### create collections 
 ```
 db.createCollection('yourCollection')
 ```
-# show collections 
+### show collections 
 ```
 show collections
 ```
-# insert record into collection 
+### insert record into collection 
 ```
 db.<yourCollection>.insert({yourRecord})
 
@@ -121,7 +121,7 @@ example: db.products.insert(
     }
 )
 ```
-# bulk insert records into collection 
+### bulk insert records into collection 
 ```
 db.<yourColleciton>.insertMany([{},{},{}....])
 
