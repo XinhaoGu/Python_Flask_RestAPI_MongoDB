@@ -67,7 +67,7 @@ mongod.exe --dbpath C:\MongoDB\data\db
 ```
 
 ### to start MongoDB client 
-``
+```
 cd C:\Program Files (x86)\MongoDB\Server\3.2\bin
 mongo.exe
 ```
