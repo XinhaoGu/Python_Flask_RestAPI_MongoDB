@@ -61,16 +61,22 @@ https://localhost:27017
 ```
 
 ### to start MongoDB server
+```
 cd C:\Program Files (x86)\MongoDB\Server\3.2\bin
 mongod.exe --dbpath C:\MongoDB\data\db
+```
 
 ### to start MongoDB client 
+``
 cd C:\Program Files (x86)\MongoDB\Server\3.2\bin
-mongo.ext
+mongo.exe
+```
 
 ### remove lock and repair db
+```
 mongod --dbpath C:\MongoDB\data\db --repair
 mongod --storageEngine=mmapv1 --dbpath C:\MongoDB\data\db
+``
 
 ### basic commands
 ### start MongoDB client
