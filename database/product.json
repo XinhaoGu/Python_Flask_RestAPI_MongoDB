@@ -1,1 +1,50 @@
-[{"id": 13860428, "name": "The Big Lebowski (Blu-ray) (Widescreen)", "current_price": {"value": 13.49, "currency_code": "USD"}}, {"id": 15117729, "name": "Star Wars - The Reise of Skywalker (Blu-Ray)", "current_price": {"value": 24.99, "currency_code": "USD"}}, {"id": 16483589, "name": "Frozen II - (Blu-Ray + DVD + Digital)", "current_price": {"value": 20.0, "currency_code": "USD"}}, {"id": 16696652, "name": "1917 (Blu-Ray + DVD + Digital)", "current_price": {"value": 24.99, "currency_code": "USD"}}, {"id": 16752456, "name": "Joker (2019) Digital HD", "current_price": {"value": 24.99, "currency_code": "USD"}}, {"id": 15643793, "name": "Jumanji (Blu-Ray + DVD + Digital)", "current_price": {"value": 22.99, "currency_code": "USD"}}, {"id": 15643799, "name": "Justice League (4k Ultra HD Blu-ray)", "current_price": {"value": 23.99, "currency_code": "USD"}}]
+[
+    {
+        "id": 13860428,
+        "name": "The Big Lebowski (Blu-ray) (Widescreen)",
+        "current_price": {
+            "value":13.49,
+            "currency_code":"USD"
+        }
+    },
+    {
+        "id": 15117729,
+        "name": "Star Wars - The Reise of Skywalker (Blu-Ray)",
+        "current_price": {
+            "value":24.99,
+            "currency_code":"USD"
+        }
+    },
+    {
+        "id": 16483589,
+        "name": "Frozen II - (Blu-Ray + DVD + Digital)",
+        "current_price": {
+            "value":20.00,
+            "currency_code":"USD"
+        }
+    },
+    {
+        "id": 16696652,
+        "name": "1917 (Blu-Ray + DVD + Digital)",
+        "current_price": {
+            "value":24.99,
+            "currency_code":"USD"
+        }
+    },
+    {
+        "id": 16752456,
+        "name": "Joker (2019) Digital HD",
+        "current_price": {
+            "value":24.99,
+            "currency_code":"USD"
+        }
+    },
+    {
+        "id": 15643793,
+        "name": "Jumanji (Blu-Ray + DVD + Digital)",
+        "current_price": {
+            "value":22.99,
+            "currency_code":"USD"
+        }
+    }
+]
