@@ -52,6 +52,7 @@ https://localhost:5000/
 ```
 https://localhost
 ```
+![](/images/Swagger.png)
 
 ## Checking MongoDB Server
 ```
