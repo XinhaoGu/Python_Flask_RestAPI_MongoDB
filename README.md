@@ -78,9 +78,7 @@ mongod --dbpath C:\MongoDB\data\db --repair
 mongod --storageEngine=mmapv1 --dbpath C:\MongoDB\data\db
 ```
 
-### basic commands
-### start MongoDB client
-### list all the databases
+### (basic commands ---> start MongoDB client ---> list all the databases)
 ``` 
 show dbs 
 ```
