@@ -76,7 +76,7 @@ mongo.exe
 ```
 mongod --dbpath C:\MongoDB\data\db --repair
 mongod --storageEngine=mmapv1 --dbpath C:\MongoDB\data\db
-``
+```
 
 ### basic commands
 ### start MongoDB client
