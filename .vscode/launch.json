@@ -10,8 +10,8 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                //"FLASK_APP": "myRetail-Local-Version.py",
-                "FLASK_APP": "myRetail-MongoDB-Version.py",
+                "FLASK_APP": "scripts/myRetail-Local-Version.py",
+                //"FLASK_APP": "scripts/myRetail-MongoDB-Version.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "0"
             },

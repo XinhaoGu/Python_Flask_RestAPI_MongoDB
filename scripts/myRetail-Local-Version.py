@@ -4,8 +4,21 @@
 #Xinhao Gu -- 3/20/2020
 
 # using flask_restful 
-from flask import Flask, request
+from flask import Flask, request, json
 from flask_restplus import Resource, Api
+
+# using db provider 
+import importlib.util
+
+# using file path util
+import os
+from pathlib import Path
+
+def module_from_file(module_name, file_path):
+    spec = importlib.util.spec_from_file_location(module_name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 # creating the flask app 
 app = Flask(__name__)
@@ -13,60 +26,36 @@ app = Flask(__name__)
 # creating an API object 
 api = Api(app)
 
-products = [
-    {
-        'id': 13860428,
-        'name': 'The Big Lebowski (Blu-ray) (Widescreen)',
-        'current_price': {
-            'value':13.49,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 15117729,
-        'name': 'Star Wars - The Reise of Skywalker (Blu-Ray)',
-        'current_price': {
-            'value':24.99,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 16483589,
-        'name': 'Frozen II - (Blu-Ray + DVD + Digital)',
-        'current_price': {
-            'value':20.00,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 16696652,
-        'name': '1917 (Blu-Ray + DVD + Digital)',
-        'current_price': {
-            'value':24.99,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 16752456,
-        'name': 'Joker (2019) Digital HD',
-        'current_price': {
-            'value':24.99,
-            'currency_code':'USD'
-        }
-    },
-    {
-        'id': 15643793,
-        'name': 'Jumanji (Blu-Ray + DVD + Digital)',
-        'current_price': {
-            'value':22.99,
-            'currency_code':'USD'
-        }
-    }
-]
+# read json data from a local repository 
+def pull_data():
+    data_folder = Path("../util")
+    file_to_open = data_folder / "json-Reader.py"
+    exists = os.path.isfile(file_to_open)
+    try: 
+        if exists:
+            json_Reader = module_from_file("jsonReaderHelper", file_to_open)
+            products = json_Reader.jsonReaderHelper("product").GetJsonData()
+            return products
+    except FileNotFoundError: 
+        return {}
 
-def lookupProductById(product_id):
-     product = [product for product in products if product['id'] == product_id]
-     return product
+# retrieve product by product id
+def lookupProductById(product_id, products):
+    product = [product for product in products if product['id'] == product_id]
+    return product
+
+# write json data to a local repository 
+def push_data(file_name, data):
+    data_folder = Path("../util")
+    file_to_open = data_folder / "json-Writer.py"
+    exists = os.path.isfile(file_to_open)
+    try: 
+        if exists:
+            json_writer = module_from_file("jsonWriterHelper", file_to_open)
+            products = json_writer.jsonWriterHelper("product", data).PostJsonData()
+            return products
+    except FileNotFoundError: 
+        return {}
 
 # making a class for a particular resource 
 # the get, post methods correspond to get and post requests 
@@ -76,44 +65,62 @@ def lookupProductById(product_id):
 class GetProducts(Resource):
     # corresponds to the GET request. 
     def get(self):
+        products = pull_data()
         return {'products':products} 
 
     # Corresponds to POST request 
     def post(self):
-        new_product = request.get_json()
-        products.append(new_product)
-        return {'new product': new_product}, 201 # status code 
-
+        try:
+            products = pull_data()
+            new_product = request.get_json()
+            products.append(new_product)
+            push_data('product', products)
+            return {'new product added': products}, 201 # status code 
+        except: 
+            return "Error when posting resource", 500
 
 # adding the defined resources along with their corresponding urls 
 @api.route('/api/product/<int:product_id>', endpoint='product')
 class GetProductById(Resource): 
     # corresponds to the GET request
     def get(self, product_id): 
-        product = lookupProductById(product_id)
-        return {'product': product}
+        try:
+            products = pull_data()
+            product = lookupProductById(product_id, products)
+            return {'product':product}, 200
+        except: 
+            return "product id not found'", 404
 
     # Corresponds to PUT request 
     def put(self, product_id): 
-        old_product = lookupProductById(product_id)
-        index_old_product = products.index(old_product)
-        new_product = request.get_json()
-        products[index_old_product] = new_product
-        return {'updated product': new_product}
+        try:
+            products = pull_data()
+            if not products:
+                return {'Failed to update none existing product'}, 404
+            else: 
+                old_product = lookupProductById(product_id, products)
+                index_old_product = products.index(old_product)
+                new_product = request.get_json()
+                products[index_old_product] = new_product
+                push_data('product', products)
+                return {'product updated': new_product}, 200
+        except: 
+            return {'Error when deleting resource'}, 500
+        
 
-    # Corresponds to DELETE request 	
-    def delete( self,product_id):	
-        try:	
-            deleteCount = mongo.db.products.delete_one ({"id":product_id})	
-            if deleteCount > 0:	
-                #Successfully deleted	
-                return "",204	
-            else:	
-                #Not Found	
-                return "",404	
-        except:	
-            #Error when deleting resource	
-            return "",500
+    # Corresponds to DELETE request 
+    def delete(self,product_id):
+        try:
+            products = pull_data()
+            product = lookupProductById(product_id, products)
+            if not products:
+                return {'Failed to delete none existing product'}, 404
+            else: 
+                products.remove(product)
+                push_data('product', products)
+                return {'product removed'}, 200
+        except: 
+            return {'Error when deleting resource'}, 500
 
 # driver function 
 if __name__ == '__main__':

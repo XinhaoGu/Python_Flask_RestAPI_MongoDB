@@ -2,16 +2,17 @@ import json
 import os
 from pathlib import Path
 
-class jsonReaderHelper:
+class jsonWriterHelper:
     # fields
     file_name = ""
+    json_data = []
 
     # constructor
-    def __init__(self, file_name):
+    def __init__(self, file_name, json_data):
         self.file_name = file_name
+        self.json_data = json_data
 
-    def GetJsonData(self):
-        
+    def PostJsonData(self):
         # read file
         data_folder = Path("../database")
         file_full_name = self.file_name + ".json"
@@ -19,12 +20,13 @@ class jsonReaderHelper:
         exists = os.path.isfile(file_to_open)
         try: 
             if exists:
-                with open(file_to_open, 'r') as json_data_file:
-                    json_data = json_data_file.read()
+                with open(file_to_open, 'w') as json_data_file:
+                    json.dump(self.json_data, json_data_file)
 
-                    # parse file
-                    json_obj = json.loads(json_data)
-                    return json_obj
+                    return self.json_data
                 pass
         except FileNotFoundError: 
+            return {"Posting product failed - on writting to product.json"}, 500
             pass
+
+
