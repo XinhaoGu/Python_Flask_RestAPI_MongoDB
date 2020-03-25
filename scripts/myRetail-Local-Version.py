@@ -41,8 +41,24 @@ def pull_data():
 
 # retrieve product by product id
 def lookupProductById(product_id, products):
-    product = [product for product in products if product['id'] == product_id]
+    product = [product for product in products if product['id'] == product_id][0]
     return product
+
+# update product
+def updateProduct(new_product, products):
+    for product in products:
+        if product['id'] == new_product['id']:
+            product['name'] = new_product['name']
+            product['current_price'] = new_product['current_price']
+    return products
+
+# remove product
+def removeProduct(product, products):
+    prod_dict = { i : products[i] for i in range(0, len(products) ) }
+    for key, value in prod_dict.items():
+        if value['id'] == product['id']:
+            products.pop(key)
+    return products
 
 # write json data to a local repository 
 def push_data(file_name, data):
@@ -99,26 +115,25 @@ class GetProductById(Resource):
                 return {'Failed to update none existing product'}, 404
             else: 
                 old_product = lookupProductById(product_id, products)
-                index_old_product = products.index(old_product)
                 new_product = request.get_json()
-                products[index_old_product] = new_product
+                products = updateProduct(new_product, products)
                 push_data('product', products)
-                return {'product updated': new_product}, 200
+                return {'product updated': products}, 200
         except: 
             return {'Error when deleting resource'}, 500
         
 
     # Corresponds to DELETE request 
-    def delete(self,product_id):
+    def delete(self, product_id):
         try:
             products = pull_data()
-            product = lookupProductById(product_id, products)
             if not products:
                 return {'Failed to delete none existing product'}, 404
             else: 
-                products.remove(product)
+                product = lookupProductById(product_id, products)
+                products = removeProduct(product, products) 
                 push_data('product', products)
-                return {'product removed'}, 200
+                return {'product removed': products}, 200
         except: 
             return {'Error when deleting resource'}, 500
 
