@@ -111,7 +111,7 @@ class GetProductById(Resource):
     def put(self, product_id): 
         try:
             products = pull_data()
-            if not products:
+            if not products or len(products)==0:
                 return {'Failed to update none existing product'}, 404
             else: 
                 old_product = lookupProductById(product_id, products)
@@ -127,7 +127,7 @@ class GetProductById(Resource):
     def delete(self, product_id):
         try:
             products = pull_data()
-            if not products:
+            if not products or len(products)==0:
                 return {'Failed to delete none existing product'}, 404
             else: 
                 product = lookupProductById(product_id, products)

@@ -1,0 +1,149 @@
+Compile program: 
+
+#Navigate to code repo 
+#Open command line prompt to start as a server
+#Run local version
+python ./myRetail-Local-Version.py 
+#Run DB version
+python ./myRetail-MongoDB-Version
+
+#Open another command line prompt as a client to testing with the following commands
+
+Tesing commands: 
+
+GET:
+curl -i http://127.0.0.1:5000/api/products
+curl -i http://127.0.0.1:5000/api/product/13860428
+
+POST: 
+curl -i -H "Content-Type: application/json" -X POST -d "{\"id\":15643799,\"name\":\"Justice League (4k Ultra HD Blu-ray)\",\"current_price\":{\"value\":23.99,\"currency_code\":\"USD\"}}" http://127.0.0.1:5000/api/products
+
+PUT:
+curl -i -H "Content-Type: application/json" -X PUT -d "{\"id\":15643799,\"name\":\"Justice League (4k Ultra HD Blu-ray)\",\"current_price\":{\"value\":25.99,\"currency_code\":\"USD\"}}" http://127.0.0.1:5000/api/product/15643799
+
+DELETE: 
+curl -i -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/api/product/15643799
+
+
+# Open a command line prompt to start MongoDB server - (if you running into errors, please remove lock and repair db, see instruction down below)
+cd C:\Program Files (x86)\MongoDB\Server\3.2\bin
+mongod.exe --dbpath C:\MongoDB\data\db
+
+# remove lock and repair db
+mongod --dbpath C:\MongoDB\data\db --repair
+mongod --storageEngine=mmapv1 --dbpath C:\MongoDB\data\db
+
+# Open another command line prompt to start MongoDB client 
+cd C:\Program Files (x86)\MongoDB\Server\3.2\bin
+mongo.exe
+
+# basic commands
+# start MongoDB client
+# list all the databases
+``` 
+show dbs 
+```
+# switch to db testDB
+```
+use testDB 
+```
+# show collections under testDB
+```
+show collections
+```
+# delete database 
+```
+db.dropDatabase()
+```
+# create new DB 
+```
+use testDB
+```
+# check which DB you are in 
+```
+db
+```
+# create collections 
+```
+db.createCollection('yourCollection')
+```
+# show collections 
+```
+show collections
+```
+# insert record into collection 
+```
+db.<yourCollection>.insert({yourRecord})
+
+example: db.products.insert(
+    {
+        'id': 13860428,
+        'name': 'The Big Lebowski (Blu-ray) (Widescreen)',
+        'current_price': {
+            'value':13.49,
+            'currency_code':'USD'
+        }
+    }
+)
+```
+# bulk insert records into collection 
+```
+db.<yourColleciton>.insertMany([{},{},{}....])
+
+example: 
+db.products.insertMany([
+    {
+        'id': 13860428,
+        'name': 'The Big Lebowski (Blu-ray) (Widescreen)',
+        'current_price': {
+            'value':13.49,
+            'currency_code':'USD'
+        }
+    },
+    {
+        'id': 15117729,
+        'name': 'Star Wars - The Reise of Skywalker (Blu-Ray)',
+        'current_price': {
+            'value':24.99,
+            'currency_code':'USD'
+        }
+    },
+    {
+        'id': 16483589,
+        'name': 'Frozen II - (Blu-Ray + DVD + Digital)',
+        'current_price': {
+            'value':20.00,
+            'currency_code':'USD'
+        }
+    },
+    {
+        'id': 16696652,
+        'name': '1917 (Blu-Ray + DVD + Digital)',
+        'current_price': {
+            'value':24.99,
+            'currency_code':'USD'
+        }
+    },
+    {
+        'id': 16752456,
+        'name': 'Joker (2019) Digital HD',
+        'current_price': {
+            'value':24.99,
+            'currency_code':'USD'
+        }
+    },
+    {
+        'id': 15643793,
+        'name': 'Jumanji (Blu-Ray + DVD + Digital)',
+        'current_price': {
+            'value':22.99,
+            'currency_code':'USD'
+        }
+    }
+])
+
+```
+
+
+
+
