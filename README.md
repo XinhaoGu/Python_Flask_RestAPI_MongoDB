@@ -31,6 +31,9 @@ pip install flask-restplus
 pip install Flask-PyMongo
 pip install bson
 pip install Werkzeug 0.16.0
+pip install pytest 
+pip install pytest-flask
+pip install request
 ```
 
 ## Running the RESTFUL-API Service
@@ -181,4 +184,8 @@ db.products.insertMany([
     }
 ])
 
+```
+## Unit Tesing 
+```
+python m pytest
 ```

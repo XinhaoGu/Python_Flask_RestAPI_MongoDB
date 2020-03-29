@@ -143,7 +143,7 @@ db.products.insertMany([
 ])
 
 ```
-
+curl -i -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/api/product/15643793
 
 
 
